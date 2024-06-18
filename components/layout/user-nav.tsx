@@ -12,10 +12,14 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { signOut, useSession } from 'next-auth/react';
+import EmailEncoder from './email-encoder';
 export function UserNav() {
   const { data: session } = useSession();
   if (session) {
+    let email = `${session.user?.email}`;
     return (
+     <>
+      <EmailEncoder email={email} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -37,6 +41,7 @@ export function UserNav() {
               <p className="text-xs leading-none text-muted-foreground">
                 {session.user?.email}
               </p>
+              
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -45,15 +50,7 @@ export function UserNav() {
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Settings
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
+            
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => signOut()}>
@@ -62,6 +59,7 @@ export function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      </>
     );
   }
 }
