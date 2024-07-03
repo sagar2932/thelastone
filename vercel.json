@@ -1,0 +1,6 @@
+{
+  "build": {
+    "command": "",  // Empty string to skip build
+    "src": ""   // Path to your pre-built output (replace with your path)
+  }
+}
